@@ -86,6 +86,18 @@ export const sendClientDetails = async (data: any) => {
   }
 };
 
+export const sendClientDetailsToSpreadSheet = async (data: any) => {
+  try {
+    console.log(data)
+    const res =  await axios.post("api/addRow",{...data});
+    console.log(res);
+     return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const sendCollaboratorDetails = async (data: any) => {
   try {
     const res =   await axios.post("api/collaborator-webhook",{...data});

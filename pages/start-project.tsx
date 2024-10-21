@@ -14,7 +14,7 @@ import {
   GradientText,
   Navbar,
 } from "../components";
-import { sendClientDetails } from "../helper/webhook";
+import { sendClientDetails, sendClientDetailsToSpreadSheet } from "../helper/webhook";
 import { faq, typeOfProjects } from "../helper/constant";
 // import { useSetDataOnServer } from "../helper/careerHooks";
 
@@ -55,8 +55,9 @@ const StartProject = () => {
   ) => {
     try {
       setShowLoader(true);
-      const res = await sendClientDetails({ ...value, technologies });
-      if (res) {
+      const resp = await sendClientDetailsToSpreadSheet({...value});
+      const res:any = await sendClientDetails({ ...value, technologies });
+      if (res.status === 200 || resp) {
         helper.resetForm();
         window.alert("Your response has been recorded.");
       } else {
